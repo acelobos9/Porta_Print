@@ -1,0 +1,6 @@
+#DB Config File
+Company Name : Porta Print
+Database Name : porta_print
+DB Address : localhost
+DB Username : root
+DB Password : 

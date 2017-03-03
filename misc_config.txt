@@ -1,0 +1,8 @@
+#miscellaneous configuration
+Website Name : Project Sa System Sec
+Website Icon : icon.png
+Official Logo: logo.png
+Style Folder : resources
+Bootstrap CSS: bootstrap.css
+Bootstrap JS : bootstrap.min.js
+jQuery File  : jQuery.js
