@@ -1,7 +1,8 @@
 <?php
 session_start();
 //$_SESSION['username'] = "";W
-
+//public $sqlconnect = null;
+/*
 function dbConnection(){
 
 	try{
@@ -53,7 +54,7 @@ function dbConnection(){
 	return $sqlconnect;
 
 }
-
+*/
 require('acelib.php');
 //require('settings.php');
 

@@ -1,8 +1,9 @@
 <?php
 session_start();
+include("functions/filemanager.php");
 
 if(!isset($_SESSION['username'])){
-      header("Location: index.php")  ;
+     header("Location: index.php")  ;
 }
 
 ?>
@@ -51,7 +52,7 @@ if(!isset($_SESSION['username'])){
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">PortaPrint</a>
+                <a class="navbar-brand page-scroll" href="#page-top"><img src="img/uprinthub.png"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -73,30 +74,17 @@ if(!isset($_SESSION['username'])){
         </div>
         <!-- /.container-fluid -->
     </nav>
-    <div align="center" >
-        <div class="upload-box dropzone" id="dropzone">
-            <h1><i class="fa fa-file-pdf-o" aria-hidden="true"></i>&nbsp;&nbsp;Drop it like its hot!</h1>
-        </div>
-    </div>
-    <div  align="center">
-        <div class="files-container">
-            <h1>Files goes here</h1>
-            <?php
-            $folderName = md5($_SESSION['username']);
-            ?>
-               <table class="sortable">
-      <thead>
-        <tr>
-          <th>Filename</th>
-          <th>Type</th>
-          <th>Size <small>(bytes)</small></th>
-          <th>Date Modified</th>
-        </tr>
-      </thead>
-      <tbody>
+
+    <div  align="center" id="bodyProper">
+        <div class="file-container upload-box dropzone style-7" id="dropzone" style="overflow-y:auto;">
+        
+            <img src="img/upload_img.png" class="hidden floating" id="upload-img">
+
       <?php
+      $folderName = md5($_SESSION['username']);
         // Opens directory
       $folder = md5($_SESSION['username']);
+      
         if(is_dir("uploads/".$folder)){
 
         }else{
@@ -108,6 +96,41 @@ if(!isset($_SESSION['username'])){
         while($entryName=readdir($myDirectory)) {
           $dirArray[]=$entryName;
         }
+        if(count($dirArray)<=4){
+          print("
+            
+            <img src='img/upload_empty.png' class='floating' id='upload-empty'>
+            <h1 id='container-header'>Upload Your First Document Today!</h1>
+            
+            <br>
+            <div id='upload-form'>
+                <input type='file' name='files[]' class='file-upload' accept='application/pdf'>
+        <button class='browse btn btn-primary btn-xl' type='button' style='min-width:245px;font-size:18px;font-style:normal;'><i class='fa fa-cloud-upload'></i> Browse</button>
+            <p>or <strong>drag & drop</strong> your files here.</p>
+            </div>
+            <script>
+            var empty = true;
+            </script>
+
+            ");
+        }else{
+
+          echo "
+          <script>
+            var empty = false;
+            </script>
+          <h1 id='container-header'>Your Documents</h1>
+              <table class='sortable' id='file-table'>
+      <thead>
+        <tr>
+          <th>Filename</th>
+          <th>Document Code</th>
+          <th>Size <small>(bytes)</small></th>
+          <th>Uploaded</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>";
         
         // Finds extensions of files
         function findexts ($filename) {
@@ -123,11 +146,12 @@ if(!isset($_SESSION['username'])){
         
         // Counts elements in array
         $indexCount=count($dirArray);
-        
+      
         // Sorts files
         sort($dirArray);
-        
+      
         // Loops through the array of files
+       
         for($index=0; $index < $indexCount; $index++) {
         
           // Allows ./?hidden to show hidden files
@@ -139,6 +163,8 @@ if(!isset($_SESSION['username'])){
           {$hide=".";
           $ahref="$dirArray[$index]";
           $atext="Show";}
+
+          
           if(substr("$dirArray[$index]", 0, 1) != $hide) {
           
           // Gets File Names
@@ -156,6 +182,7 @@ if(!isset($_SESSION['username'])){
           $timekey=date("YmdHis", filemtime("uploads/".$folder."/".$dirArray[$index]));
           
           // Prettifies File Types, add more to suit your needs.
+          /*
           switch ($extn){
             case "png": $extn="PNG Image"; break;
             case "jpg": $extn="JPEG Image"; break;
@@ -173,38 +200,51 @@ if(!isset($_SESSION['username'])){
             
             case "zip": $extn="ZIP Archive"; break;
             case "bak": $extn="Backup File"; break;
-            
             default: $extn=strtoupper($extn)." File"; break;
           }
-          
+          */
+
           // Separates directories
           if(is_dir($dirArray[$index])) {
-            $extn="&lt;Directory&gt;"; 
+            //$extn="&lt;Directory&gt;"; 
             $size="&lt;Directory&gt;"; 
             $class="dir";
           } else {
             $class="file";
           }
           
+          
           // Cleans up . and .. directories 
           if($name=="."){$name=". (Current Directory)"; $extn="&lt;System Dir&gt;";}
           if($name==".."){$name=".. (Parent Directory)"; $extn="&lt;System Dir&gt;";}
           
           // Print 'em
+          
+          if($extn==="pdf"){
+          $rCode = getFileCode($name);
           print("
           <tr class='$class'>
             <td><a href='./$namehref'>$name</a></td>
-            <td><a href='./$namehref'>$extn</a></td>
+            <td><a href='#'>$rCode</a></td>
             <td><a href='./$namehref'>$size</a></td>
             <td sorttable_customkey='$timekey'><a href='./$namehref'>$modtime</a></td>
+            <td><button onclick=delFile('".$name."','".$rCode."')  type='submit'style='margin-left:15px;padding:9px !important;background-color:rgba(0,0,0,0);color:#4484b1;' class='btn btn-primary'><i class='fa  fa-trash sr-icons'></i></button>
+            
+            </td>
           </tr>");
+
           }
+
+          }else{
+
+          }
+        }
         }
       ?>
       </tbody>
-    </table>
-        </div>
+    </table>       
     </div>
+</div>
     <!-- jQuery -->
     <script src="vendor/jquery/jquery.min.js"></script>
 
@@ -217,6 +257,7 @@ if(!isset($_SESSION['username'])){
     <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
     <script type="text/javascript">
+    
         (function(){
             var dropzone = document.getElementById('dropzone');
 
@@ -240,8 +281,8 @@ if(!isset($_SESSION['username'])){
 
                     if(data[0] == "success"){
                         //upload success
-                        window.alert("Upload success. Document ID: "+data[1]);
-
+                        //alert("Upload success. ");
+                        window.location.reload();
                     }else{
                         //upload fail?
                     }
@@ -253,20 +294,73 @@ if(!isset($_SESSION['username'])){
             dropzone.ondrop = function(e){
                 e.preventDefault();
                 this.className = 'upload-box ';
-                upload(e.dataTransfer.files);
+                $("#dropzone").hide();
+                $("#bodyProper").append("  <br><br><div align='center' class='loader' id='loader-7'></div><br><h1>Updating Your Files</h1>");
+                setTimeout(upload.bind(this, e.dataTransfer.files),1000);
             };
 
             dropzone.ondragover = function(){
+                $("#container-header").html("Drop File To Upload");
+                $("#file-table").hide();
+                $("#upload-img").removeClass("hidden");
+               // $("#container-header").css("color", "#fff");
                 this.className = 'upload-box  dragover';
+                if(empty){
+                  
+                  $("#upload-empty").addClass("hidden");
+                  $("#upload-form").addClass("hidden");
+                }
+                
                 return false;
             };
 
             dropzone.ondragleave = function(){
+                $("#container-header").html("Your Documents");
+                $("#file-table").show();
+                $("#upload-img").addClass("hidden");
+                //$("#container-header").css("color", "#333");
                 this.className = 'upload-box ';
+                if(empty){
+                  $("#container-header").html("Upload Your First Document Today!");
+                  
+                  $("#upload-empty").removeClass("hidden");
+                  $("#upload-form").removeClass("hidden");
+                }
+                
                 return false;   
             };
-
+            bodyProper.ondrop = function(e){
+              e.preventDefault();
+            }
         }());
+
+        function delFile(filename,code){
+          
+          //alert(filename);
+                  $.ajax({ // JQuery ajax function
+                  type: "POST", // Submitting Method
+                  url: 'functions/deletefile.php', // PHP processor
+                  data: 'filename='+filename+"&code="+code, // the data that will be sent to php processor
+                  dataType: "html", // type of returned data
+                  success: function(data) { 
+                    //do something
+
+                    if(data=="removed"){
+                      alert("File successfully deleted.");
+                      window.location.reload();
+                    }
+                  }
+                  });
+
+        }
+        //custom upload
+        $(document).on('click', '.browse', function(){
+  var file = $(this).parent().parent().parent().find('.file-upload');
+  file.trigger('click');
+});
+$(document).on('change', '.file-upload', function(){
+  $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+});
     </script>
     <style type="text/css">
         * {
@@ -306,10 +400,10 @@ table {
 }
 
 th {
-    background-color: #FE4902;
+    background-color: #4484b1;
     color: #FFF;
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 15px 20px;
 }
 
 th small {
@@ -325,16 +419,16 @@ a {
 }
 
 td a {
-    color: #663300;
+    color: #345;
     display: block;
-    padding: 5px 10px;
+    padding: 15px 20px;
 }
 th a {
     padding-left: 0
 }
 
 td:first-of-type a {
-    background: url(./.images/file.png) no-repeat 10px 50%;
+    background: url('img/file.png') no-repeat 10px 50%;
     padding-left: 35px;
 }
 th:first-of-type {
@@ -346,81 +440,17 @@ td:not(:first-of-type) a {
 } 
 
 tr:nth-of-type(odd) {
-    background-color: #E6E6E6;
+    background-color: #cee0ee;
 }
 
 tr:hover td {
-    background-color:#CACACA;
+    background-color:#98b4ca;
 }
 
 tr:hover td a {
     color: #000;
 }
-
-
-
-
-
-/* icons for file types (icons by famfamfam) */
-
-/* images */
-table tr td:first-of-type a[href$=".jpg"], 
-table tr td:first-of-type a[href$=".png"], 
-table tr td:first-of-type a[href$=".gif"], 
-table tr td:first-of-type a[href$=".svg"], 
-table tr td:first-of-type a[href$=".jpeg"]
-{background-image: url(./.images/image.png);}
-
-/* zips */
-table tr td:first-of-type a[href$=".zip"] 
-{background-image: url(./.images/zip.png);}
-
-/* css */
-table tr td:first-of-type a[href$=".css"] 
-{background-image: url(./.images/css.png);}
-
-/* docs */
-table tr td:first-of-type a[href$=".doc"],
-table tr td:first-of-type a[href$=".docx"],
-table tr td:first-of-type a[href$=".ppt"],
-table tr td:first-of-type a[href$=".pptx"],
-table tr td:first-of-type a[href$=".pps"],
-table tr td:first-of-type a[href$=".ppsx"],
-table tr td:first-of-type a[href$=".xls"],
-table tr td:first-of-type a[href$=".xlsx"]
-{background-image: url(./.images/office.png)}
-
-/* videos */
-table tr td:first-of-type a[href$=".avi"], 
-table tr td:first-of-type a[href$=".wmv"], 
-table tr td:first-of-type a[href$=".mp4"], 
-table tr td:first-of-type a[href$=".mov"], 
-table tr td:first-of-type a[href$=".m4a"]
-{background-image: url(./.images/video.png);}
-
-/* audio */
-table tr td:first-of-type a[href$=".mp3"], 
-table tr td:first-of-type a[href$=".ogg"], 
-table tr td:first-of-type a[href$=".aac"], 
-table tr td:first-of-type a[href$=".wma"] 
-{background-image: url(./.images/audio.png);}
-
-/* web pages */
-table tr td:first-of-type a[href$=".html"],
-table tr td:first-of-type a[href$=".htm"],
-table tr td:first-of-type a[href$=".xml"]
-{background-image: url(./.images/xml.png);}
-
-table tr td:first-of-type a[href$=".php"] 
-{background-image: url(./.images/php.png);}
-
-table tr td:first-of-type a[href$=".js"] 
-{background-image: url(./.images/script.png);}
-
-/* directories */
-table tr.dir td:first-of-type a
-{background-image: url(./.images/folder.png);}
-    </style>
+</style>
     
 
 </body>

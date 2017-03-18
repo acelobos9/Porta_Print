@@ -7,7 +7,6 @@ WebsiteSettting->CREATE TABLE WebsiteSettting (settingID INT NOT NULL AUTO_INCRE
 Page Table->CREATE TABLE PageTbl (pageID INT NOT NULL AUTO_INCREMENT, pageTitle VARCHAR(64) NOT NULL, pageDescription VARCHAR(512) NULL, pageStatus INT(1) NOT NULL, PRIMARY KEY (pageID) );
 Parts Table->CREATE TABLE PartsTbl (partsID INT NOT NULL AUTO_INCREMENT, header VARCHAR(2048) NULL, footer VARCHAR(2048) NULL, sideBar VARCHAR(2048)  NULL, PRIMARY KEY (partsID) );
 ColorScheme Table->CREATE TABLE ColorScheme (schemeID INT NOT NULL AUTO_INCREMENT, schemeName VARCHAR(64) NOT NULL, cssPath VARCHAR(2048) NOT NULL, description VARCHAR(512) NOT NULL, PRIMARY KEY (schemeID) );
-ClientFile Table->CREATE TABLE ClientFile (fileID INT NOT NULL AUTO_INCREMENT, clientID INT NOT NULL, fileCode VARCHAR(6) NOT NULL, fileKey VARCHAR(4) NULL, PRIMARY KEY (fileID) );
 FileDirectory Table->CREATE TABLE FileDirectory (fileID INT NOT NULL, fileName VARCHAR(64) NOT NULL, fileCode VARCHAR(6) NOT NULL, fileKey VARCHAR(4) NULL);
 Transaction Table->CREATE TABLE TransactionTable (transactionID INT NOT NULL AUTO_INCREMENT, machineID INT NOT NULL, clientID INT NOT NULL, sale INT(4) NOT NULL, PRIMARY KEY (transactionID) );
 Machine Table->CREATE TABLE MachineTable (machineID INT NOT NULL AUTO_INCREMENT, ownerID INT NOT NULL, machineLocation VARCHAR(512) NULL, machineStatus INT(4) NOT NULL, PRIMARY KEY (machineID) );

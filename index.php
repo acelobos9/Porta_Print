@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PortaPrint</title>
+    <title>uPrintHub</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -34,7 +34,7 @@
 
 </head>
 
-<body id="page-top">
+<body id="page-top" style="overflow-y:auto;" class="style-7">
 
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
         <div class="container-fluid">
@@ -43,7 +43,7 @@
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">PortaPrint</a>
+                <a class="navbar-brand page-scroll" href="#page-top"><img src="img/uprinthub.png"></a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -51,7 +51,7 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <li>
-                        <a class="page-scroll" href="#portfolio">SignIn</a>
+                        <a class="page-scroll" href="#login">SignIn</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#about">About</a>
@@ -61,6 +61,10 @@
                     </li>
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#register" style="padding:5px !important;"><button class="btn btn-primary"
+                        style="margin:5px !important;">Register Free</button></a>
                     </li>
                 </ul>
             </div>
@@ -72,15 +76,16 @@
     <header>
         <div class="header-content">
             <div class="header-content-inner">
-                <h1 id="homeHeading">Print Your Documents on the Go! Have Your Work Printed in an Instant.</h1>
+                <img class="" src="img/logo-lg.png" style="margin-bottom:60px;max-width:200px;">
+                <h1 id="homeHeading">Print Your Documents on the Go!</h1>
                 <hr>
                 <p>We provide fast and efficient printing services for student, professionals, and businesses. With our online document storage, you can access or print your file anywhere.</p>
-                <a href="#about" class="btn btn-primary btn-xl page-scroll">Find Out More</a>
+                <a href="#about" class="floating btn btn-primary btn-xl page-scroll">Find Out More</a>
             </div>
         </div>
     </header>
 
-    <section class="no-padding" id="portfolio">
+    <section class="no-padding" id="login">
         <div class="container-fluid" style="margin-top:45px;margin-bottom:45px;">
             <div class="row">
                 <div class="col-sm-4"></div>
@@ -116,7 +121,7 @@
                             <div align="center">
                             <input class="btn btn-primary btn-xl sr-button" id="submit_login" name="submit_login" type="submit" style="min-width:180px;" value="Log In">
                             </div>
-                            
+                            <a href="owner.php"><b>I'm a machine owner.</b></a>
                         </div>
                     
                     </div>  
@@ -126,7 +131,7 @@
         </div>
     </section>
 
-<header class=" compress">
+<header class=" compress" id="register">
     <aside class="bg-primary">
         <div class="container text-center">
             <div class="call-to-action">
@@ -155,6 +160,11 @@
                                   <span class="input-group-addon" id="basic-addon1"><i class="fa  fa-at text-primary sr-icons"></i></span>
                                   <input type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1" id="userName" name="userName">
                                 </div>
+                                <h4>Credits Pin</h4>
+                                <div class="input-group">
+                                  <span class="input-group-addon" id="basic-addon1"><i class="fa fa-hashtag text-primary sr-icons"></i></span>
+                                  <input type="password" class="form-control" placeholder="Pin Number" aria-describedby="basic-addon1" name="cPin" id="cPin" onkeypress="return isNumber(event)">
+                                </div>
                                 <h4>Password</h4>
                                 <div class="input-group">
                                   <span class="input-group-addon" id="basic-addon1"><i class="fa fa-key text-primary sr-icons"></i></span>
@@ -165,7 +175,7 @@
                                   <span class="input-group-addon" id="basic-addon1"><i class="fa fa-key text-primary sr-icons"></i></span>
                                   <input type="password" class="form-control" placeholder="Password" onblur="passPrint()" aria-describedby="basic-addon1" name="cpassWord" id="cpassWord">
                                 </div>
-
+                                
                                 <br>
                                     <div class="hidden alert alert-danger " id="misMatch" role="alert">
                                        Passwords do not match.
@@ -196,10 +206,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 text-center">
-                    <h2 class="section-heading">About PortaPrint</h2>
+                    <h2 class="section-heading">About uPrintHub</h2>
                     <hr class="light">
-                    <p class="text-faded">PortaPrint is a plug and print machine that makes document printing easier, and faster. We also offer an online document storage service for our valued customers, upload your file and print them on any of our machines anytime you desire. We also keep your file and account protected, and secure.</p>
+                    <p class="text-faded">uPrintHub is a plug and print machine that makes document printing easier, and faster. We also offer an online document storage service for our valued customers, upload your file and print them on any of our machines anytime you desire. We also keep your file and account protected, and secure.</p>
                     <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Get Started!</a>
+                    <br>
+                    <br>
+                    <p>Want to know more?<br>
+                    <a href="frequently-asked.html"><b>Read our FAQs</b></a>
+                    </p>
                 </div>
             </div>
         </div>
@@ -280,7 +295,7 @@
 
     <!-- Plugin JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
-    <script src="vendor/scrollreveal/scrollreveal.min.js"></script>
+    
     <script src="vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 
     <!-- Theme JavaScript -->
@@ -342,21 +357,21 @@
     var lName = $("input#lastName").val();
     var uName = $("input#userName").val();
     var pWord = $("input#passWord").val();
-  
+    var cPin = $("input#cPin").val();
     $.ajax({ // JQuery ajax function
       type: "POST", // Submitting Method
       url: 'functions/register.php', // PHP processor
-      data: 'firstName='+fName+"&lastName="+lName+"&userName="+uName+"&passWord="+pWord,
+      data: 'firstName='+fName+"&lastName="+lName+"&userName="+uName+"&passWord="+pWord+"&clientPin="+cPin,
       dataType: "html",
       success: function(data) { // if ajax function results success
       //  alert(data);
       if (data == "taken") { // if the returned data equal 0
         //----- username already taken
         $("#userTaken").removeClass("hidden");
-      }else if(data=="recorded!") { // if the reurned data not equal 0
+      }else if(data=="recorded") { // if the reurned data not equal 0
         //----- user registered
         $("#registerSuccess").removeClass("hidden");
-        
+        setTimeout(hideRegistration(),3500);
       }else{
         //window.alert(data);
       }
@@ -365,7 +380,9 @@
     return false;
     });
 
-
+    function hideRegistration(){
+           $("#register_btn").hide();
+    }
 
 
     });
@@ -377,14 +394,22 @@
     var password = $("input#passWord").val(); 
     var cpassword = $("input#cpassWord").val(); 
 
-    if (password == cpassword) { // if password variable is empty
-        
+    if (password == cpassword) {        
         $("#register_btn").removeClass("hidden");
         $("#misMatch").addClass("hidden");
     }else{
         $("#misMatch").removeClass("hidden");
     }
     }
+
+    function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
     </script>
 
 </body>

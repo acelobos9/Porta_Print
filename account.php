@@ -37,7 +37,7 @@ include('dbcon.php');
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>PortaPrint</title>
+    <title>uPrintHub</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -71,7 +71,7 @@ include('dbcon.php');
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
                 </button>
-                <a class="navbar-brand page-scroll" href="#page-top">PortaPrint</a>
+                <a class="navbar-brand page-scroll" href="#page-top">uPrintHub</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -93,19 +93,7 @@ include('dbcon.php');
         </div>
         <!-- /.container-fluid -->
     </nav>
-    <section class="bg-dark">
-        <div class="row">
-            <div class="col-sm-4">
-                
-            </div>
-            <div class="col-sm-4">
-                
-            </div>
-            <div class="col-sm-4">
-                
-            </div>
-        </div>
-    </section>
+
     <form class="form-horizontal" method="post" action="">
     <div class="container container-fluid" style="color:black;">    
         <div class="panel" style="margin-top:70px;">

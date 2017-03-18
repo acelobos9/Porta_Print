@@ -1,4 +1,5 @@
 <?php
+/*
 function dbConnection(){
 
 	try{
@@ -50,7 +51,7 @@ function dbConnection(){
 	return $sqlconnect;
 
 }
-
+*/
 
 include("acelib.php");
 
@@ -60,7 +61,7 @@ include("acelib.php");
 	$lName = $_POST["lastName"];
 	$uName = $_POST["userName"];
 	$pWord = $_POST["passWord"];
-	
+	$cPin = $_POST["clientPin"];
 	$result = fetch("clienttbl","*","clientUsername.eq.".$uName."");
 	if($row  = mysqli_fetch_array($result)){
 		echo "taken";
@@ -69,7 +70,10 @@ include("acelib.php");
 		$columns = "clientUsername,clientPass";
 		if(record("clienttbl",$columns,$values)){
 			if(record("clientinfo","clientUsername,firstName,lastName",$uName.",".$fName.",".$lName)){
-			echo 'recorded!';	
+				if(record("clientcredit","clientUsername,clientPin,credits",$uName.",".$cPin.",0")){
+				echo 'recorded';		
+				}
+			
 			}else{
 				//echo "fail";
 			}
